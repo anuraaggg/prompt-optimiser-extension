@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Prompt Optimiser</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <h3>Prompt Optimiser</h3>
+
+  <div id="controls">
+    <select id="goal">
+      <option>Explain</option>
+      <option>Code</option>
+      <option>Write</option>
+      <option>Analyse</option>
+    </select>
+
+    <select id="tone">
+      <option>Neutral</option>
+      <option>Formal</option>
+      <option>Technical</option>
+    </select>
+
+    <select id="audience">
+      <option>Beginner</option>
+      <option>Intermediate</option>
+      <option>Expert</option>
+    </select>
+  </div>
+
+  <button id="optimise">Optimise</button>
+
+  <textarea
+    id="output"
+    placeholder="Optimised prompt will appear here"
+    readonly
+  ></textarea>
+
+  <!-- Copy button -->
+  <button id="copy">Copy</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>
