@@ -51,7 +51,6 @@ Rewrite the original prompt accordingly.
     output.value = "Backend not reachable.";
   }
 });
-});
 
 copyBtn.addEventListener("click", async () => {
   const text = output.value;
