@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-  <h3>Prompt Optimiser</h3>
+  <h1>Prompt Optimiser</h1>
 
   <textarea
     id="input"
@@ -14,24 +14,33 @@
   ></textarea>
 
   <div id="controls">
-    <select id="goal">
-      <option>Explain</option>
-      <option>Code</option>
-      <option>Write</option>
-      <option>Analyse</option>
-    </select>
+    <div class="control-group">
+      <label for="goal">Goal</label>
+      <select id="goal">
+        <option>Explain</option>
+        <option>Code</option>
+        <option>Write</option>
+        <option>Analyse</option>
+      </select>
+    </div>
 
-    <select id="tone">
-      <option>Neutral</option>
-      <option>Formal</option>
-      <option>Technical</option>
-    </select>
+    <div class="control-group">
+      <label for="tone">Tone</label>
+      <select id="tone">
+        <option>Neutral</option>
+        <option>Formal</option>
+        <option>Technical</option>
+      </select>
+    </div>
 
-    <select id="audience">
-      <option>Beginner</option>
-      <option>Intermediate</option>
-      <option>Expert</option>
-    </select>
+    <div class="control-group">
+      <label for="audience">Audience</label>
+      <select id="audience">
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Expert</option>
+      </select>
+    </div>
   </div>
 
   <button id="optimise">Optimise</button>
