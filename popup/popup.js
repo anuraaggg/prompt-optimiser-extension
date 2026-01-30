@@ -15,6 +15,7 @@ optimiseBtn.addEventListener("click", async () => {
   const audience = document.getElementById("audience").value;
 
   output.value = "Optimising...";
+  optimiseBtn.disabled = true;
 
   const combinedPrompt = `
 Original Prompt:
@@ -27,15 +28,21 @@ Target Audience: ${audience || "General"}
 Rewrite the original prompt accordingly.
   `.trim();
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+
   try {
     const res = await fetch(
       "https://prompt-optimiser-api.onrender.com/optimise",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ optimiserPrompt: combinedPrompt })
+        body: JSON.stringify({ optimiserPrompt: combinedPrompt }),
+        signal: controller.signal
       }
     );
+
+    clearTimeout(timeout);
 
     const data = await res.json();
 
@@ -47,15 +54,23 @@ Rewrite the original prompt accordingly.
 
     output.value = data.optimisedPrompt;
   } catch (err) {
-    console.error("Connection error:", err);
-    output.value = "Backend not reachable.";
+    clearTimeout(timeout);
+    console.error("Request error:", err);
+    
+    if (err.name === "AbortError") {
+      output.value = "Request timed out (30s). Please try again.";
+    } else {
+      output.value = "Backend not reachable.";
+    }
+  } finally {
+    optimiseBtn.disabled = false;
   }
 });
 
 copyBtn.addEventListener("click", async () => {
   const text = output.value;
 
-  if (!text || text.includes("Optimising") || text.includes("Failed") || text.includes("Backend")) return;
+  if (!text || text.includes("Optimising") || text.includes("Failed") || text.includes("Backend") || text.includes("timed out") || text.includes("Please enter")) return;
 
   try {
     await navigator.clipboard.writeText(text);
